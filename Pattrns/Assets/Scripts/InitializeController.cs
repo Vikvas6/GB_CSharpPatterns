@@ -1,13 +1,25 @@
-﻿using UnityEngine;
+﻿using Asteroids.Object_Pool;
+using UnityEngine;
 
 
 namespace Asteroids
 {
-    #region Contructor
 
     internal sealed class InitializeController
     {
-        public InitializeController(Player player, float hp, Camera camera, float speed, float acceleration, Rigidbody2D bullet, Transform barrel, float force)
+        #region Contructor
+        
+        public InitializeController(
+            Player player,
+            float hp,
+            Camera camera,
+            float speed,
+            float acceleration,
+            int poolsCapacity,
+            Bullet bullet,
+            Transform barrel,
+            float force,
+            float lifeTime)
         {
             player.AddInteractable(new DamageController(player, hp));
             
@@ -18,11 +30,12 @@ namespace Asteroids
             inputController.OnAxisInput += ship.Move;
             inputController.OnLeftShiftDown += ship.AddAcceleration;
             inputController.OnLeftShiftUp += ship.RemoveAcceleration;
-            inputController.OnFire1 += new FireController(bullet, barrel, force).Fire;
+            inputController.OnFire1 += new FireController(new BulletPool(poolsCapacity, bullet), barrel, force, lifeTime).Fire;
             inputController.OnRotate += ship.Rotation;
             player.AddUpdatables(inputController);
         }
+        
+        #endregion
     }
 
-    #endregion
 }
