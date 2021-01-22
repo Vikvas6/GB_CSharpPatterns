@@ -21,8 +21,6 @@ namespace Asteroids
         [SerializeField] private int _poolsCapacity = 10;
         [SerializeField] private int _spawnTime = 3;
         [SerializeField] private int _enemyDistance = 3;
-        
-        private EnemyPool _enemyPool;
 
         private List<IUpdatable> _updatables = new List<IUpdatable>();
         private List<IInteractable> _interactables = new List<IInteractable>();
@@ -33,9 +31,11 @@ namespace Asteroids
 
         private void Start()
         {
-            new InitializeController(this, _hp, Camera.main, _speed, _acceleration, _poolsCapacity, _bullet, _barrel, _force, _lifeTime);
-            _enemyPool = new EnemyPool(_poolsCapacity);
+            ServiceLocator.SetService(new EnemyPool(_poolsCapacity));
+            ServiceLocator.SetService(new BulletPool(_poolsCapacity, _bullet));
             
+            new InitializeController(this, _hp, Camera.main, _speed, _acceleration, _barrel, _force, _lifeTime);
+
             InvokeRepeating(nameof(CreateEnemy), 0.0f, _spawnTime);
         }
 
@@ -72,7 +72,7 @@ namespace Asteroids
 
         private void CreateEnemy()
         {
-            var enemy = _enemyPool.GetRandomEnemy();
+            var enemy = ServiceLocator.Resolve<EnemyPool>().GetRandomEnemy();
             var angle = Random.Range(0, 90);
             Vector3 direction3D = new Vector3((float)Math.Cos(angle), (float)Math.Sin(angle), 0.0f);
             enemy.transform.position = transform.localPosition + direction3D * _enemyDistance;
