@@ -126,10 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56df3c13fc6e8db4394da1e67b3cf010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _bullet: {fileID: 4933975063922895782, guid: a745dd606b94f0e4ea1288097c3c31e1, type: 3}
+  _bullet: {fileID: 0}
   _barrel: {fileID: 1736822075617220547}
-  _force: 999
+  _speed: 10
+  _acceleration: 10
+  _hp: 100
+  _force: 100
+  _lifeTime: 2
+  _poolsCapacity: 15
 --- !u!60 &2796825545063593918
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -58,16 +58,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Abstract_Factory\ConsoleInput.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\ConsoleWindow.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\IInput.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\IPlatform.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\IWindow.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\InputFactory.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\PCInput.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\PCWindow.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\Platform.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\PlatformFactory.cs" />
+     <Compile Include="Assets\Scripts\Abstract_Factory\WindowFactory.cs" />
      <Compile Include="Assets\Scripts\AccelerationMove.cs" />
+     <Compile Include="Assets\Scripts\Asteroid.cs" />
+     <Compile Include="Assets\Scripts\AsteroidFactory.cs" />
+     <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\DamageController.cs" />
+     <Compile Include="Assets\Scripts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\EnemyBattleship.cs" />
+     <Compile Include="Assets\Scripts\EnemyBattleshipFactory.cs" />
      <Compile Include="Assets\Scripts\FireController.cs" />
+     <Compile Include="Assets\Scripts\GameStarter.cs" />
+     <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\InitializeController.cs" />
      <Compile Include="Assets\Scripts\InputController.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IEnemyFactory.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IInteractable.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IMove.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IRotation.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IUpdatable.cs" />
      <Compile Include="Assets\Scripts\MoveTransform.cs" />
+     <Compile Include="Assets\Scripts\Object_Pool\BulletPool.cs" />
+     <Compile Include="Assets\Scripts\Object_Pool\EnemyPool.cs" />
+     <Compile Include="Assets\Scripts\Object_Pool\NameManager.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\RotationShip.cs" />
      <Compile Include="Assets\Scripts\Ship.cs" />

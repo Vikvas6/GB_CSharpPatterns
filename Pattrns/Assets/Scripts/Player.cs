@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Asteroids.Object_Pool;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 namespace Asteroids
@@ -8,16 +11,18 @@ namespace Asteroids
     {
         #region Fields
 
-        [SerializeField] private Rigidbody2D _bullet;
+        [SerializeField] private Bullet _bullet;
         [SerializeField] private Transform _barrel;
-        [SerializeField] private float _speed;
-        [SerializeField] private float _acceleration;
-        [SerializeField] private float _hp;
-        [SerializeField] private float _force;
+        [SerializeField] private float _speed = 5;
+        [SerializeField] private float _acceleration = 10;
+        [SerializeField] private float _hp = 100;
+        [SerializeField] private float _force = 100;
+        [SerializeField] private float _lifeTime = 2;
+        [SerializeField] private int _poolsCapacity = 10;
+        [SerializeField] private int _spawnTime = 3;
+        [SerializeField] private int _enemyDistance = 3;
         
-        private DamageController _damageController;
-        private FireController _fireController;
-        private InputController _inputController;
+        private EnemyPool _enemyPool;
 
         private List<IUpdatable> _updatables = new List<IUpdatable>();
         private List<IInteractable> _interactables = new List<IInteractable>();
@@ -28,7 +33,10 @@ namespace Asteroids
 
         private void Start()
         {
-            new InitializeController(this, _hp, Camera.main, _speed, _acceleration, _bullet, _barrel, _force);
+            new InitializeController(this, _hp, Camera.main, _speed, _acceleration, _poolsCapacity, _bullet, _barrel, _force, _lifeTime);
+            _enemyPool = new EnemyPool(_poolsCapacity);
+            
+            InvokeRepeating(nameof(CreateEnemy), 0.0f, _spawnTime);
         }
 
         private void Update()
@@ -41,6 +49,7 @@ namespace Asteroids
 
         private void OnCollisionEnter2D(Collision2D other)
         {
+            print("asdf");
             for (int i = 0; i < _interactables.Count; i++)
             {
                 _interactables[i].Interact();
@@ -59,6 +68,16 @@ namespace Asteroids
         public void AddInteractable(IInteractable interactable)
         {
             _interactables.Add(interactable);
+        }
+
+        private void CreateEnemy()
+        {
+            var enemy = _enemyPool.GetRandomEnemy();
+            var angle = Random.Range(0, 90);
+            Vector3 direction3D = new Vector3((float)Math.Cos(angle), (float)Math.Sin(angle), 0.0f);
+            enemy.transform.position = transform.localPosition + direction3D * _enemyDistance;
+            enemy.gameObject.SetActive(true);
+            AddUpdatables(enemy);
         }
 
         #endregion
