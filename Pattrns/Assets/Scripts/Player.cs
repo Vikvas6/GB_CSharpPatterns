@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Asteroids
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, ISerializationCallbackReceiver
     {
         #region Fields
 
@@ -24,6 +24,12 @@ namespace Asteroids
 
         private List<IUpdatable> _updatables = new List<IUpdatable>();
         private List<IInteractable> _interactables = new List<IInteractable>();
+
+        //https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.html
+        public Dictionary<int, string> DictionaryToShowInUnity = new Dictionary<int, string>();
+        
+        public List<int> _keys = new List<int> { 3, 4, 5 };
+        public List<string> _values = new List<string> { "I", "Love", "Unity" };
 
         #endregion
 
@@ -81,7 +87,45 @@ namespace Asteroids
         }
 
         #endregion
-        
+
+        public void OnBeforeSerialize()
+        {
+            _keys.Clear();
+            _values.Clear();
+
+            foreach (var kvp in DictionaryToShowInUnity)
+            {
+                _keys.Add(kvp.Key);
+                _values.Add(kvp.Value);
+            }
+        }
+
+        public void OnAfterDeserialize()
+        {
+            DictionaryToShowInUnity = new Dictionary<int, string>();
+
+            for (int i = 0; i < Math.Max(_keys.Count, _values.Count); i++)
+            {
+                int newKey = 0;
+                string newValue = "";
+                if (i < _keys.Count)
+                {
+                    newKey = _keys[i];
+                }
+
+                if (i < _values.Count)
+                {
+                    newValue = _values[i];
+                }
+                DictionaryToShowInUnity.Add(newKey, newValue);
+            }
+        }
+
+        private void OnGUI()
+        {
+            foreach (var kvp in DictionaryToShowInUnity)
+                GUILayout.Label("Key: " + kvp.Key + " value: " + kvp.Value);
+        }
     }
     
 }
