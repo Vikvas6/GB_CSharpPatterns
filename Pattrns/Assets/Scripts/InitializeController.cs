@@ -15,8 +15,6 @@ namespace Asteroids
             Camera camera,
             float speed,
             float acceleration,
-            int poolsCapacity,
-            Bullet bullet,
             Transform barrel,
             float force,
             float lifeTime)
@@ -30,7 +28,7 @@ namespace Asteroids
             inputController.OnAxisInput += ship.Move;
             inputController.OnLeftShiftDown += ship.AddAcceleration;
             inputController.OnLeftShiftUp += ship.RemoveAcceleration;
-            inputController.OnFire1 += new FireController(new BulletPool(poolsCapacity, bullet), barrel, force, lifeTime).Fire;
+            inputController.OnFire1 += new FireController(barrel, force, lifeTime).Fire;
             inputController.OnRotate += ship.Rotation;
             player.AddUpdatables(inputController);
         }
