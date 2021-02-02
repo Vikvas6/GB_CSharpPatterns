@@ -6,7 +6,7 @@ using Asteroids.Object_Pool;
 using UnityEngine;
 
 
-public class FireController
+public class FireController : IFire
 {
     #region Fields
 

@@ -16,6 +16,7 @@ namespace Asteroids
         #region Events
 
         public event InputAction OnFire1;
+        public event InputAction OnFire2;
         public event InputAction OnLeftShiftDown;
         public event InputAction OnLeftShiftUp;
         public event AxisInputAction OnAxisInput;
@@ -59,9 +60,14 @@ namespace Asteroids
                 OnLeftShiftUp?.Invoke();
             }
             
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 OnFire1?.Invoke();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                OnFire2?.Invoke();
             }
         }
 

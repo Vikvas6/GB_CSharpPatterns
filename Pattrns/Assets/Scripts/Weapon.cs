@@ -26,6 +26,11 @@ namespace Asteroids
             _barrelPosition = barrelPosition;
         }
 
+        public Transform GetBarrelPosition()
+        {
+            return _barrelPosition;
+        }
+
         public void SetBullet(IAmmunition bullet)
         {
             _bullet = bullet;
@@ -39,6 +44,11 @@ namespace Asteroids
         public void SetAudioClip(AudioClip audioClip)
         {
             _audioClip = audioClip;
+        }
+
+        public AudioClip GetAudioClip()
+        {
+            return _audioClip;
         }
 
         public void Fire()

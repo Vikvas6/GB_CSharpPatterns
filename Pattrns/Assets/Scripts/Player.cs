@@ -11,8 +11,8 @@ namespace Asteroids
     {
         #region Fields
 
-        [SerializeField] private Bullet _bullet;
-        [SerializeField] private Transform _barrel;
+        [SerializeField] private Bullet _bullet = null;
+        [SerializeField] private Transform _barrel = null;
         [SerializeField] private float _speed = 5;
         [SerializeField] private float _acceleration = 10;
         [SerializeField] private float _hp = 100;
@@ -31,6 +31,8 @@ namespace Asteroids
         public List<int> _keys = new List<int> { 3, 4, 5 };
         public List<string> _values = new List<string> { "I", "Love", "Unity" };
 
+        private CreateEnemyFacade _enemyFacade;
+
         #endregion
 
         #region UnityMethods
@@ -43,6 +45,8 @@ namespace Asteroids
             new InitializeController(this, _hp, Camera.main, _speed, _acceleration, _barrel, _force, _lifeTime);
 
             InvokeRepeating(nameof(CreateEnemy), 0.0f, _spawnTime);
+
+            _enemyFacade = new CreateEnemyFacade();
         }
 
         private void Update()
@@ -78,11 +82,7 @@ namespace Asteroids
 
         private void CreateEnemy()
         {
-            var enemy = ServiceLocator.Resolve<EnemyPool>().GetRandomEnemy();
-            var angle = Random.Range(0, 90);
-            Vector3 direction3D = new Vector3((float)Math.Cos(angle), (float)Math.Sin(angle), 0.0f);
-            enemy.transform.position = transform.localPosition + direction3D * _enemyDistance;
-            enemy.gameObject.SetActive(true);
+            var enemy = _enemyFacade.CreateEnemy(transform, _enemyDistance);
             AddUpdatables(enemy);
         }
 

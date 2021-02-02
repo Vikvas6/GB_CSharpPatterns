@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Asteroids.Object_Pool;
+﻿using Asteroids.Object_Pool;
 using UnityEngine;
+
 
 namespace Asteroids
 {

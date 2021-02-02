@@ -28,7 +28,14 @@ namespace Asteroids
             inputController.OnAxisInput += ship.Move;
             inputController.OnLeftShiftDown += ship.AddAcceleration;
             inputController.OnLeftShiftUp += ship.RemoveAcceleration;
-            inputController.OnFire1 += new FireController(barrel, force, lifeTime).Fire;
+
+            FireController fireController = new FireController(barrel, force, lifeTime);
+            UnlockWeapon unlockWeapon = new UnlockWeapon(true);
+            FireControllerProxy fireControllerProxy = new FireControllerProxy(fireController, unlockWeapon);
+            inputController.OnFire1 += fireControllerProxy.Fire;
+            inputController.OnFire2 += unlockWeapon.UnlockWeaponAction;
+            
+            
             inputController.OnRotate += ship.Rotation;
             player.AddUpdatables(inputController);
         }

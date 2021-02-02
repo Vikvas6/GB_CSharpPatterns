@@ -69,26 +69,50 @@
      <Compile Include="Assets\Scripts\Abstract_Factory\Platform.cs" />
      <Compile Include="Assets\Scripts\Abstract_Factory\PlatformFactory.cs" />
      <Compile Include="Assets\Scripts\Abstract_Factory\WindowFactory.cs" />
-     <Compile Include="Assets\Scripts\AccelerationMove.cs" />
+     <Compile Include="Assets\Scripts\Ammo.cs" />
      <Compile Include="Assets\Scripts\Asteroid.cs" />
-     <Compile Include="Assets\Scripts\AsteroidFactory.cs" />
+     <Compile Include="Assets\Scripts\Attacks\MagicalAttack.cs" />
+     <Compile Include="Assets\Scripts\Attacks\PhysAttack.cs" />
+     <Compile Include="Assets\Scripts\BridgeExample.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\CreateEnemyFacade.cs" />
      <Compile Include="Assets\Scripts\DamageController.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemyBattleship.cs" />
-     <Compile Include="Assets\Scripts\EnemyBattleshipFactory.cs" />
+     <Compile Include="Assets\Scripts\EnemyBridge.cs" />
+     <Compile Include="Assets\Scripts\ExampleFactories.cs" />
+     <Compile Include="Assets\Scripts\ExampleWeapon.cs" />
+     <Compile Include="Assets\Scripts\Factories\AsteroidFactory.cs" />
+     <Compile Include="Assets\Scripts\Factories\EnemyBattleshipFactory.cs" />
+     <Compile Include="Assets\Scripts\Factories\InfantryFactory.cs" />
+     <Compile Include="Assets\Scripts\Factories\MageFactory.cs" />
+     <Compile Include="Assets\Scripts\Factories\UnitFactory.cs" />
      <Compile Include="Assets\Scripts\FireController.cs" />
+     <Compile Include="Assets\Scripts\FireControllerProxy.cs" />
      <Compile Include="Assets\Scripts\GameStarter.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\InitializeController.cs" />
      <Compile Include="Assets\Scripts\InputController.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IAmmunition.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IAttack.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IEnemyFactory.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IFire.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IInteractable.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IMove.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IMuffler.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IParse.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IRotation.cs" />
+     <Compile Include="Assets\Scripts\Interfaces\IScope.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IService.cs" />
      <Compile Include="Assets\Scripts\Interfaces\IUpdatable.cs" />
-     <Compile Include="Assets\Scripts\MoveTransform.cs" />
+     <Compile Include="Assets\Scripts\ModificationMuffler.cs" />
+     <Compile Include="Assets\Scripts\ModificationScope.cs" />
+     <Compile Include="Assets\Scripts\ModificationWeapon.cs" />
+     <Compile Include="Assets\Scripts\Moves\AccelerationMove.cs" />
+     <Compile Include="Assets\Scripts\Moves\Infantry.cs" />
+     <Compile Include="Assets\Scripts\Moves\MoveTransform.cs" />
+     <Compile Include="Assets\Scripts\Moves\StayMove.cs" />
+     <Compile Include="Assets\Scripts\Muffler.cs" />
      <Compile Include="Assets\Scripts\Object_Pool\BulletPool.cs" />
      <Compile Include="Assets\Scripts\Object_Pool\EnemyPool.cs" />
      <Compile Include="Assets\Scripts\Object_Pool\NameManager.cs" />
@@ -97,6 +121,10 @@
      <Compile Include="Assets\Scripts\ServiceLocator.cs" />
      <Compile Include="Assets\Scripts\Ship.cs" />
      <Compile Include="Assets\Scripts\Test.cs" />
+     <Compile Include="Assets\Scripts\UnlockWeapon.cs" />
+     <Compile Include="Assets\Scripts\Weapon.cs" />
+     <Compile Include="Assets\Scripts\WeaponScope.cs" />
+     <None Include="Assets\System.Json.4.7.1\useSharedDesignerContext.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -112,8 +140,10 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\System.Json.4.7.1\lib\netstandard2.0\System.Json.xml" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\System.Json.4.7.1\version.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>F:/UnityProjects/GB/GB_CSharpPatterns/Pattrns/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -318,6 +348,9 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>F:/Program Files/Unity/Hub/2019.3.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Json">
+ <HintPath>F:/UnityProjects/GB/GB_CSharpPatterns/Pattrns/Assets/System.Json.4.7.1/lib/netstandard2.0/System.Json.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>F:/Program Files/Unity/Hub/2019.3.4f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
