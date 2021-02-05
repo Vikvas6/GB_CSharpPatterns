@@ -4,12 +4,12 @@ namespace Asteroids
 {
     internal class DamageController : IInteractable
     {
-        private Player _player;
+        private IDestroyable _target;
         private float _hp;
 
-        public DamageController(Player player, float hp)
+        public DamageController(IDestroyable target, float hp)
         {
-            _player = player;
+            _target = target;
             _hp = hp;
         }
 
@@ -17,7 +17,7 @@ namespace Asteroids
         {
             if (_hp <= 0)
             {
-                GameObject.Destroy(_player.gameObject);
+                _target.SelfDestroy();
             }
 
             _hp--;

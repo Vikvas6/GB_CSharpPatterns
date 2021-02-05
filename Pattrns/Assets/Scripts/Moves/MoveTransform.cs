@@ -8,7 +8,6 @@ namespace Asteroids
         #region Fields
 
         private readonly Transform _transform;
-        private Vector3 _move;
 
         #endregion
 
@@ -33,8 +32,7 @@ namespace Asteroids
         public void Move(float horizontal, float vertical, float deltaTime)
         {
             var speed = deltaTime * Speed;
-            _move.Set(horizontal * speed, vertical * speed, 0.0f);
-            _transform.localPosition += _move;
+            _transform.position += _transform.up * (vertical * speed) + _transform.right * (horizontal * speed);
         }
 
         #endregion

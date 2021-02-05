@@ -12,18 +12,18 @@ public class FireController : IFire
 
     private Transform _barrel;
 
-    private float _force;
+    private Func<float> _getCurrentForceFromPlayer;
     private float _lifeTime;
 
     #endregion
 
     #region Contructor
 
-    public FireController(Transform barrel, float force, float lifeTime)
+    public FireController(Transform barrel, Func<float> getForce, float lifeTime)
     {
         _barrel = barrel;
-        _force = force;
         _lifeTime = lifeTime;
+        _getCurrentForceFromPlayer = getForce;
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class FireController : IFire
         temAmmunition.transform.localPosition = _barrel.position;
         temAmmunition.transform.localRotation = _barrel.rotation;
         temAmmunition.transform.gameObject.SetActive(true);
-        temAmmunition.GetComponent<Rigidbody2D>().AddForce(_barrel.up * _force);
+        temAmmunition.GetComponent<Rigidbody2D>().AddForce(_barrel.up * _getCurrentForceFromPlayer());
         temAmmunition.InvokeReturnToPool(_lifeTime);
     }
 

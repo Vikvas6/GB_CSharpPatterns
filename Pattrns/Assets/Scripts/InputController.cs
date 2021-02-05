@@ -21,6 +21,10 @@ namespace Asteroids
         public event InputAction OnLeftShiftUp;
         public event AxisInputAction OnAxisInput;
         public event RotateInputAction OnRotate;
+        public event InputAction OnC;
+        public event InputAction OnX;
+        public event InputAction OnV;
+        public event InputAction OnZ;
 
         #endregion
 
@@ -68,6 +72,26 @@ namespace Asteroids
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 OnFire2?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                OnC?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                OnV?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                OnX?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                OnZ?.Invoke();
             }
         }
 
