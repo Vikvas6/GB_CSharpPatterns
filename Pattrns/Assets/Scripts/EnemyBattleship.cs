@@ -24,5 +24,10 @@ namespace Asteroids
             _abilities.Add(new Ability("Stasis Field", 50, Target.Autocast, DamageType.Magical));
             _abilities.Add(new Ability("Ram", 500, Target.Unit, DamageType.Pure));
         }
+
+        public override string ToString()
+        {
+            return "Battleship";
+        }
     }
 }

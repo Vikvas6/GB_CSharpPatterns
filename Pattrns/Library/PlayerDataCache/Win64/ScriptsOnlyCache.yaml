@@ -61,41 +61,41 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11176}
+      Script: {instanceID: 11236}
     - Class: 114
-      Script: {instanceID: 11342}
+      Script: {instanceID: 11402}
     - Class: 114
-      Script: {instanceID: 11388}
+      Script: {instanceID: 11448}
     - Class: 114
-      Script: {instanceID: 11558}
+      Script: {instanceID: 11618}
     - Class: 114
-      Script: {instanceID: 11804}
+      Script: {instanceID: 11864}
     - Class: 114
-      Script: {instanceID: 11824}
+      Script: {instanceID: 11884}
     - Class: 114
-      Script: {instanceID: 11834}
+      Script: {instanceID: 11894}
     - Class: 114
-      Script: {instanceID: 12322}
+      Script: {instanceID: 12382}
     - Class: 114
-      Script: {instanceID: 12418}
+      Script: {instanceID: 12478}
     - Class: 114
-      Script: {instanceID: 12456}
+      Script: {instanceID: 12516}
     - Class: 114
-      Script: {instanceID: 12470}
+      Script: {instanceID: 12530}
     - Class: 114
-      Script: {instanceID: 12514}
+      Script: {instanceID: 12574}
     - Class: 114
-      Script: {instanceID: 12732}
+      Script: {instanceID: 12792}
     - Class: 114
-      Script: {instanceID: 12892}
-    - Class: 114
-      Script: {instanceID: 13068}
-    - Class: 114
-      Script: {instanceID: 13124}
+      Script: {instanceID: 12952}
     - Class: 114
       Script: {instanceID: 13128}
     - Class: 114
-      Script: {instanceID: 13146}
+      Script: {instanceID: 13184}
+    - Class: 114
+      Script: {instanceID: 13188}
+    - Class: 114
+      Script: {instanceID: 13206}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -626,4 +626,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: F:/UnityProjects/GB/GB_CSharpPatterns/Pattrns/Builds/Lesson6/Pattrns.exe
+  playerPath: F:/UnityProjects/GB/GB_CSharpPatterns/Pattrns/Builds/Lesson7/Pattrns.exe

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Asteroids.Iterator;
 using Asteroids.Object_Pool;
+using Asteroids.Observer;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -59,20 +60,27 @@ namespace Asteroids
             }
         }
 
-        public static Asteroid CreateAsteroidEnemy(Health hp, MessageBroker.MessageBroker messageBroker)
+        public static Asteroid CreateAsteroidEnemy(Health hp, MessageBroker.MessageBroker messageBroker, HitListener hitListener)
         {
             var enemy = Instantiate(Resources.Load<Asteroid>("Enemy/Asteroid"));
-            enemy.Health = hp;
-            enemy._messageBroker = messageBroker;
+            enemy.SetUpCommonEnemy(hp, messageBroker, hitListener);
             return enemy;
         }
 
-        public static EnemyBattleship CreateBattleshipEnemy(Health hp, MessageBroker.MessageBroker messageBroker)
+        public static EnemyBattleship CreateBattleshipEnemy(Health hp, MessageBroker.MessageBroker messageBroker, HitListener hitListener)
         {
             var enemy = Instantiate(Resources.Load<EnemyBattleship>("Enemy/Battleship"));
-            enemy.SetHealth(hp);
-            enemy._messageBroker = messageBroker;
+            enemy.SetUpCommonEnemy(hp, messageBroker, hitListener);
             return enemy;
+        }
+
+        private void SetUpCommonEnemy(Health hp, MessageBroker.MessageBroker messageBroker, HitListener hitListener)
+        {
+            Health = hp;
+            _messageBroker = messageBroker;
+            DamageController damageController = new DamageController(this, this.Health.Max);
+            hitListener.Add(damageController);
+            AddInteractable(damageController);
         }
 
         public void ActiveEnemy(Vector3 position, Quaternion rotation)

@@ -19,5 +19,10 @@ namespace Asteroids
             base.Init();
             _abilities.Add(new Ability("Stone Punch", 500, Target.Unit, DamageType.Pure));
         }
+
+        public override string ToString()
+        {
+            return "Asteroid";
+        }
     }
 }
