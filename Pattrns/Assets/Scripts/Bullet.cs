@@ -15,5 +15,10 @@ namespace Asteroids
         {
             ServiceLocator.Resolve<BulletPool>().ReturnToPool(transform);
         }
+        
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            ReturnToPool();
+        }
     }
 }

@@ -11,10 +11,11 @@ namespace Asteroids.Object_Pool
     public class EnemyPool
     {
         private readonly Dictionary<string, HashSet<Enemy>> _enemyPool;
+        private readonly MessageBroker.MessageBroker _messageBroker;
         private readonly int _capacityPool;
         private Transform _rootPool;
 
-        public EnemyPool(int capacityPool)
+        public EnemyPool(int capacityPool, MessageBroker.MessageBroker messageBroker)
         {
             _enemyPool = new Dictionary<string, HashSet<Enemy>>();
             _capacityPool = capacityPool;
@@ -22,6 +23,8 @@ namespace Asteroids.Object_Pool
             {
                 _rootPool = new GameObject(NameManager.POOL_ENEMIES).transform;
             }
+
+            _messageBroker = messageBroker;
         }
 
         public Enemy GetEnemy(string type)
@@ -57,10 +60,9 @@ namespace Asteroids.Object_Pool
             var enemy = enemies.FirstOrDefault(a => !a.gameObject.activeSelf);
             if (enemy == null)
             {
-                var laser = Resources.Load<Asteroid>("Enemy/Asteroid");
                 for (var i = 0; i < _capacityPool; i++)
                 {
-                    var instantiate = Object.Instantiate(laser);
+                    var instantiate = Enemy.CreateAsteroidEnemy(new Health(2.0f, 2.0f), _messageBroker);
                     ReturnToPool(instantiate.transform);
                     enemies.Add(instantiate);
                 }
@@ -76,10 +78,9 @@ namespace Asteroids.Object_Pool
             var enemy = enemies.FirstOrDefault(a => !a.gameObject.activeSelf);
             if (enemy == null)
             {
-                var laser = Resources.Load<EnemyBattleship>("Enemy/Battleship");
                 for (var i = 0; i < _capacityPool; i++)
                 {
-                    var instantiate = Object.Instantiate(laser);
+                    var instantiate = Enemy.CreateBattleshipEnemy(new Health(1.0f, 1.0f), _messageBroker);
                     ReturnToPool(instantiate.transform);
                     enemies.Add(instantiate);
                 }

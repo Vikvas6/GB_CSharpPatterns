@@ -1,29 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using Asteroids.ChainOfResponsibility;
+using Asteroids.Command;
+using Asteroids.Interpreter;
+using Asteroids.Memnto;
+using Asteroids.MessageBroker;
 using Asteroids.Object_Pool;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 
 namespace Asteroids
 {
-    public class Player : MonoBehaviour, ISerializationCallbackReceiver
+    public class Player : MonoBehaviour, ISerializationCallbackReceiver, IDestroyable
     {
         #region Fields
 
         [SerializeField] private Bullet _bullet = null;
         [SerializeField] private Transform _barrel = null;
+
+        [SerializeField] private InterpreterWindow _interpreterWindow = null;
+        [SerializeField] private InfoWindow _infoWindow = null;
+        [SerializeField] private Text _messagesText = null;
+        
         [SerializeField] private float _speed = 5;
         [SerializeField] private float _acceleration = 10;
-        [SerializeField] private float _hp = 100;
+        [SerializeField] private float _hp = 5;
         [SerializeField] private float _force = 100;
         [SerializeField] private float _lifeTime = 2;
         [SerializeField] private int _poolsCapacity = 10;
         [SerializeField] private int _spawnTime = 3;
         [SerializeField] private int _enemyDistance = 3;
 
+        private MessageBroker.MessageBroker _messageBroker;
         private List<IUpdatable> _updatables = new List<IUpdatable>();
         private List<IInteractable> _interactables = new List<IInteractable>();
+        private List<IFixedUpdatable> _fixedUpdatables = new List<IFixedUpdatable>();
 
         //https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.html
         public Dictionary<int, string> DictionaryToShowInUnity = new Dictionary<int, string>();
@@ -35,18 +47,36 @@ namespace Asteroids
 
         #endregion
 
+        #region Properties
+
+        public float Hp
+        {
+            get => _hp;
+            set => _hp = value;
+        }
+
+        #endregion
+
         #region UnityMethods
 
         private void Start()
         {
-            ServiceLocator.SetService(new EnemyPool(_poolsCapacity));
+            _messageBroker = new MessageBroker.MessageBroker();
+            _messageBroker.AddConsumer(new ScreenMessagesConsumer(_messagesText));
+            
+            ServiceLocator.SetService(new EnemyPool(_poolsCapacity, _messageBroker));
             ServiceLocator.SetService(new BulletPool(_poolsCapacity, _bullet));
             
-            new InitializeController(this, _hp, Camera.main, _speed, _acceleration, _barrel, _force, _lifeTime);
+            new InitializeController(this, _hp, Camera.main, _speed, _acceleration, _barrel, _lifeTime, _interpreterWindow, _infoWindow);
 
             InvokeRepeating(nameof(CreateEnemy), 0.0f, _spawnTime);
 
             _enemyFacade = new CreateEnemyFacade();
+
+            var root = new PlayerModifier(this);
+            root.Add(new BulletForceModifier(this, 5));
+            root.Add(new HPModifier(this, 50));
+            root.Handle();
         }
 
         private void Update()
@@ -57,9 +87,16 @@ namespace Asteroids
             }
         }
 
+        private void FixedUpdate()
+        {
+            for (int i = 0; i < _fixedUpdatables.Count; i++)
+            {
+                _fixedUpdatables[i].FixedUpdateTick();
+            }
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
-            print("asdf");
             for (int i = 0; i < _interactables.Count; i++)
             {
                 _interactables[i].Interact();
@@ -73,6 +110,11 @@ namespace Asteroids
         public void AddUpdatables(IUpdatable updatable)
         {
             _updatables.Add(updatable);
+        }
+
+        public void AddFixedUpdatables(IFixedUpdatable fixedUpdatable)
+        {
+            _fixedUpdatables.Add(fixedUpdatable);
         }
 
         public void AddInteractable(IInteractable interactable)
@@ -125,6 +167,21 @@ namespace Asteroids
         {
             foreach (var kvp in DictionaryToShowInUnity)
                 GUILayout.Label("Key: " + kvp.Key + " value: " + kvp.Value);
+        }
+
+        public void SelfDestroy()
+        {
+            Destroy(gameObject);
+        }
+
+        public float GetForce()
+        {
+            return _force;
+        }
+
+        public void MultiplyForce(int multiplier)
+        {
+            _force *= multiplier;
         }
     }
     
