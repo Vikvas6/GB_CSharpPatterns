@@ -139,6 +139,8 @@
      <Compile Include="Assets\Scripts\Object_Pool\BulletPool.cs" />
      <Compile Include="Assets\Scripts\Object_Pool\EnemyPool.cs" />
      <Compile Include="Assets\Scripts\Object_Pool\NameManager.cs" />
+     <Compile Include="Assets\Scripts\Observer\HitListener.cs" />
+     <Compile Include="Assets\Scripts\Observer\IHit.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\RotationShip.cs" />
      <Compile Include="Assets\Scripts\ServiceLocator.cs" />

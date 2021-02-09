@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Asteroids.Observer;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = System.Random;
@@ -12,6 +13,7 @@ namespace Asteroids.Object_Pool
     {
         private readonly Dictionary<string, HashSet<Enemy>> _enemyPool;
         private readonly MessageBroker.MessageBroker _messageBroker;
+        private readonly HitListener _messageBrokerHitListener;
         private readonly int _capacityPool;
         private Transform _rootPool;
 
@@ -25,6 +27,7 @@ namespace Asteroids.Object_Pool
             }
 
             _messageBroker = messageBroker;
+            _messageBrokerHitListener = new HitListener(_messageBroker);
         }
 
         public Enemy GetEnemy(string type)
@@ -62,7 +65,7 @@ namespace Asteroids.Object_Pool
             {
                 for (var i = 0; i < _capacityPool; i++)
                 {
-                    var instantiate = Enemy.CreateAsteroidEnemy(new Health(2.0f, 2.0f), _messageBroker);
+                    var instantiate = Enemy.CreateAsteroidEnemy(new Health(2.0f, 2.0f), _messageBroker, _messageBrokerHitListener);
                     ReturnToPool(instantiate.transform);
                     enemies.Add(instantiate);
                 }
@@ -80,7 +83,7 @@ namespace Asteroids.Object_Pool
             {
                 for (var i = 0; i < _capacityPool; i++)
                 {
-                    var instantiate = Enemy.CreateBattleshipEnemy(new Health(1.0f, 1.0f), _messageBroker);
+                    var instantiate = Enemy.CreateBattleshipEnemy(new Health(1.0f, 1.0f), _messageBroker, _messageBrokerHitListener);
                     ReturnToPool(instantiate.transform);
                     enemies.Add(instantiate);
                 }
