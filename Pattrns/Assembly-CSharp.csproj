@@ -121,6 +121,13 @@
      <Compile Include="Assets\Scripts\Iterator\IAbility.cs" />
      <Compile Include="Assets\Scripts\Iterator\IEnemy.cs" />
      <Compile Include="Assets\Scripts\Iterator\Target.cs" />
+     <Compile Include="Assets\Scripts\MVVM\ApplyDamageView.cs" />
+     <Compile Include="Assets\Scripts\MVVM\HpModel.cs" />
+     <Compile Include="Assets\Scripts\MVVM\HpView.cs" />
+     <Compile Include="Assets\Scripts\MVVM\HpViewModel.cs" />
+     <Compile Include="Assets\Scripts\MVVM\IHpModel.cs" />
+     <Compile Include="Assets\Scripts\MVVM\IHpViewModel.cs" />
+     <Compile Include="Assets\Scripts\MVVM\Starter.cs" />
      <Compile Include="Assets\Scripts\Memento\ControlClass.cs" />
      <Compile Include="Assets\Scripts\Memento\IFixedUpdatable.cs" />
      <Compile Include="Assets\Scripts\Memento\PointInTime.cs" />
